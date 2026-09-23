@@ -1,0 +1,5 @@
+so we will get rtk and gps
+both will be co-ordinates we convert them into like
+comparisiveable x y z cartisians
+then we have to find error
+perimeter area etc useing each of them hmm okay 
