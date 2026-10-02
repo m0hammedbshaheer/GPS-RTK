@@ -29,16 +29,15 @@ def update_lists():
     rtk_total_area.delete(0,END)
     rtk_total_perimeter.delete(0,END)
 
-    gps_total_perimeter.insert(0,perimeter_F(get_gps()))
-    gps_total_area.insert(0,area(get_gps()))
-    rtk_total_area.insert(0,area(get_rtk()))
-    rtk_total_perimeter.insert(0,perimeter_F(get_rtk()))
+    gps_total_perimeter.insert(0,str(perimeter_F(get_gps())))
+    gps_total_area.insert(0,str(area(get_gps())))
+    rtk_total_area.insert(0,str(area(get_rtk())))
+    rtk_total_perimeter.insert(0,str(perimeter_F(get_rtk())))
 
-
-
-
-
-
+    gps_total_perimeter.config(state="readonly")
+    gps_total_area.config(state="readonly")
+    rtk_total_area.config(state="readonly")
+    rtk_total_perimeter.config(state="readonly")
 
 
 def save_rtk():

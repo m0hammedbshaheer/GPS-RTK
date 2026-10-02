@@ -1,16 +1,18 @@
-import matplotlib.pyplot as plot
 import math
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import numpy as np
+
 global_ref_point = None
 
 rtk = []
-
 gps = []
 error = []
+
 def perimeter_F(a):
     n=len(a)
+    if n == 0:
+        return 0
     perimeter=0
     for i in range(0, n - 1):
         x_d = (a[i][0] - a[i+1][0])**2
@@ -49,13 +51,8 @@ def area(a):
     return area
 
 def Error():
-    #to calculate the error between the two shapes, we can use the Hausdorff distance
-    #  or a similar metric. For simplicity,
-    #  let's calculate the average distance 
-    # from each point in the GPS shape to the
-    #  nearest point in the RTK shape and vice versa.
-    #  This will give us a measure of how closely
-    #  the two shapes match.
+    global error
+    error = []
     minimum_points = min(len(gps),len(rtk))
     for i in range (0,minimum_points):
         current_point_diff =  (np.array(gps[i]) - np.array(rtk[i])).tolist()
@@ -70,28 +67,26 @@ def add_point_gps(a):
     global global_ref_point
     if global_ref_point is None:
         global_ref_point = list(a)
-        gps.append([0, 0, 0])
-    else:
-        earth_radius = 6371000.0
-        ref_lat_rad = math.radians(global_ref_point[0])
-        x_meters = (a[1] - global_ref_point[1]) * (math.pi / 180.0) * earth_radius * math.cos(ref_lat_rad)
-        y_meters = (a[0] - global_ref_point[0]) * (math.pi / 180.0) * earth_radius
-        z_meters = a[2] - global_ref_point[2]
-        gps.append([x_meters, y_meters, z_meters])
+    
+    earth_radius = 6371000.0
+    ref_lat_rad = math.radians(global_ref_point[0])
+    x_meters = (a[1] - global_ref_point[1]) * (math.pi / 180.0) * earth_radius * math.cos(ref_lat_rad)
+    y_meters = (a[0] - global_ref_point[0]) * (math.pi / 180.0) * earth_radius
+    z_meters = a[2] - global_ref_point[2]
+    gps.append([x_meters, y_meters, z_meters])
 
 
 def add_point_rtk(a):
     global global_ref_point
     if global_ref_point is None:
         global_ref_point = list(a)
-        rtk.append([0.0, 0.0, 0.0])
-    else:
-        earth_radius = 6371000.0
-        ref_lat_rad = math.radians(global_ref_point[0])
-        x_meters = (a[1] - global_ref_point[1]) * (math.pi / 180.0) * earth_radius * math.cos(ref_lat_rad)
-        y_meters = (a[0] - global_ref_point[0]) * (math.pi / 180.0) * earth_radius
-        z_meters = a[2] - global_ref_point[2]
-        rtk.append([x_meters, y_meters, z_meters])
+        
+    earth_radius = 6371000.0
+    ref_lat_rad = math.radians(global_ref_point[0])
+    x_meters = (a[1] - global_ref_point[1]) * (math.pi / 180.0) * earth_radius * math.cos(ref_lat_rad)
+    y_meters = (a[0] - global_ref_point[0]) * (math.pi / 180.0) * earth_radius
+    z_meters = a[2] - global_ref_point[2]
+    rtk.append([x_meters, y_meters, z_meters])
 
 
 def get_gps():
