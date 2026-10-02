@@ -145,7 +145,18 @@ gps_total_area = Entry(
     font=("Arial", 12),
     state="readonly"
 )
-
+Label(window,
+        text="Point Error:",
+        fg="white",
+        bg="black").place(x=230, y=250)
+Label(window,
+        text="RTK Points:",
+        fg="white",
+        bg="black").place(x=430, y=250)
+Label(window,
+        text="GPS Points:",
+        fg="white",
+        bg="black").place(x=30, y=250  )
 Label(window,
       text="GPS Perimeter:",
       fg="white",
