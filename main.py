@@ -26,8 +26,25 @@ def perimeter_F(a):
     return perimeter
 
 
-def area():
-    return 0
+def area(a):
+    area =0 
+    if(len(a)<3):
+        return 0
+    else:
+        for i in range (0 ,len(a)-1):
+            x = a[i][0]
+            y = a[i+1][1]
+            x_ = a[i+1][0]
+            y_ = a[i][1]
+            area += x_*y - x*y_
+        
+        x_final = a[len(a)-1][0]
+        y_final = a[len(a)-1][1]
+        x = a[0][0]
+        y = a[0][1]
+        area +=  x_final*y - x*y_final
+        area = abs(area/2)
+    return area
 
 
 def add_point_gps(a):
