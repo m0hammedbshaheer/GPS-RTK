@@ -7,7 +7,7 @@ window = Tk()
 
 
 def update_lists():
-    
+    generate_plot()
     Gps_list.delete(0, END)
     Rtk_list.delete(0, END)
     point_error.delete(0, END)  
@@ -86,15 +86,6 @@ add_point2 = Button(
     bg="black",
     fg="white"
 )
-
-Generate_plot = Button(
-    window,
-    text="Generate Plot",
-    command=generate_plot,
-    bg="black",
-    fg="white"
-)
-
 
 Label(window,
       text="X Coordinate:",
@@ -188,7 +179,7 @@ Gps_list.place(x=30, y=275)
 point_error.place(x=230, y=275)
 Rtk_list.place(x=430, y=275)
 
-Generate_plot.place(x=1000, y=600)
+
 add_point.place(x=300, y=50)
 add_point2.place(x=300, y=100)
 canvas_widget.place(x=650, y=50)
