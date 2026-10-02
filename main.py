@@ -2,9 +2,11 @@ import matplotlib.pyplot as plot
 import math
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-
+import numpy as np
 global_ref_point = None
+
 rtk = []
+
 gps = []
 error = []
 def perimeter_F(a):
@@ -27,9 +29,27 @@ def perimeter_F(a):
 
 
 def area():
+
     return 0
 
+def Error():
+    #to calculate the error between the two shapes, we can use the Hausdorff distance
+    #  or a similar metric. For simplicity,
+    #  let's calculate the average distance 
+    # from each point in the GPS shape to the
+    #  nearest point in the RTK shape and vice versa.
+    #  This will give us a measure of how closely
+    #  the two shapes match.
+    minimum_points = min(len(gps),len(rtk))
+    for i in range (0,minimum_points):
+        current_point_diff =  (np.array(gps[i]) - np.array(rtk[i])).tolist()
+        error.append(current_point_diff)
 
+    return 0
+def get_error():
+    return error
+
+    
 def add_point_gps(a):
     global global_ref_point
     if global_ref_point is None:

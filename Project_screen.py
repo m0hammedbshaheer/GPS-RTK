@@ -1,5 +1,5 @@
 from tkinter import *
-from main import perimeter_F,area, add_point_rtk, add_point_gps, get_gps, get_rtk, add_to_graph_gps
+from main import Error,perimeter_F,area,get_error, add_point_rtk, add_point_gps, get_gps, get_rtk, add_to_graph_gps
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
@@ -7,12 +7,17 @@ window = Tk()
 
 
 def update_lists():
+    
     Gps_list.delete(0, END)
     Rtk_list.delete(0, END)
+    point_error.delete(0, END)  
+    Error()
     for i in range(0, len(get_gps())):
         Gps_list.insert(END, "Point " + str(i+1) + " :" + str(get_gps()[i]))
     for i in range(0, len(get_rtk())):
         Rtk_list.insert(END, "Point " + str(i+1) + " :" + str(get_rtk()[i]))
+    for i in range(0 , len(get_error())):
+        point_error.insert(END, "Point " + str(i+1) + " :" + str(get_error()[i]))
 
     gps_total_perimeter.config(state="normal")
     gps_total_area.config(state="normal")
