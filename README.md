@@ -354,5 +354,3 @@ SKUAST-K / IIT Mandi
 ## License
 
 This project is currently intended for educational, academic, and experimental development.
-
-A formal open-source license can be added as the project matures.
