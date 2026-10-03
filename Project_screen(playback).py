@@ -1,11 +1,11 @@
 from tkinter import *
-from main import remove_point, Error,perimeter_F,area,get_error, add_point_rtk, add_point_gps, get_gps, get_rtk, add_to_graph_gps,check_reset_reference,swap
+from main import Error,perimeter_F,area,get_error, add_point_rtk, add_point_gps, get_gps, get_rtk, add_to_graph_gps
 from matplotlib.figure import Figure
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 window = Tk()
 
-# COmmands
+
 def update_lists():
     generate_plot()
     Gps_list.delete(0, END)
@@ -67,62 +67,11 @@ def save_gps():
 def generate_plot():
     add_to_graph_gps(get_gps(), get_rtk(), fig, canvas)
 
-def delete_point():
-    gps_selected = Gps_list.curselection()
-    rtk_selected = Rtk_list.curselection()
-
-    if gps_selected:
-        index = gps_selected[0]
-        remove_point(get_gps(), index)
-
-    elif rtk_selected:
-        index = rtk_selected[0]
-        remove_point(get_rtk(), index)
-
-    else:
-        print("Please select a point")
-    check_reset_reference()
-    update_lists()
-
-
-def swap_point():
-    gps_selected = Gps_list.curselection()
-    rtk_selected = Rtk_list.curselection()
-
-    # GPS points selected
-    if gps_selected:
-        if len(gps_selected) != 2:
-            print("Select exactly two GPS points")
-            return
-
-        index1 = gps_selected[0]
-        index2 = gps_selected[1]
-
-        swap(get_gps(), index1, index2)
-
-    # RTK points selected
-    elif rtk_selected:
-        if len(rtk_selected) != 2:
-            print("Select exactly two RTK points")
-            return
-
-        index1 = rtk_selected[0]
-        index2 = rtk_selected[1]
-
-        swap(get_rtk(), index1, index2)
-
-    else:
-        print("Please select two points")
-        return
-
-    update_lists()
 
 window.title("Project_name")
 window.geometry("1100x1000")
 window.config(background="black")
 
-
-#buttomns 
 add_point = Button(
     window,
     text="Add to GPS",
@@ -138,47 +87,55 @@ add_point2 = Button(
     fg="white"
 )
 
-delete = Button( window,
-    text= "Delete Selected",
-    bg="black",
-    fg="white",
-    command= delete_point
-    
-)
-swap_B = Button(window,
-        text= "Swap Selected",
-        bg="black",
-        fg="white",
-        command=swap_point      )
-
-# labels
 Label(window,
       text="X Coordinate:",
       fg="white",
       bg="black").place(x=30, y=25)
+x = Entry(window, font=("Arial", 12))
+
 Label(window,
       text="Y Coordinate:",
       fg="white",
       bg="black").place(x=30, y=75)
+y = Entry(window, font=("Arial", 12))
+
 Label(window,
       text="Z Coordinate:",
       fg="white",
       bg="black").place(x=30, y=125)
+z = Entry(window, font=("Arial", 12))
+
+x.place(x=30, y=50)
+y.place(x=30, y=100)
+z.place(x=30, y=150)
+
 Label(window,
       text="RTK area:",
       fg="white",
       bg="black").place(x=930, y=470)
-
+rtk_total_area = Entry(
+    window,
+    font=("Arial", 12),
+    state="readonly"
+)
 Label(window,
       text="RTK Perimeter:",
       fg="white",
       bg="black").place(x=900, y=500)
-
+rtk_total_perimeter = Entry(
+    window,
+    font=("Arial", 12),
+    state="readonly"
+)
 Label(window,
       text="GPS Area:",
       fg="white",
       bg="black").place(x=630, y=470)
-
+gps_total_area = Entry(
+    window,
+    font=("Arial", 12),
+    state="readonly"
+)
 Label(window,
         text="Point Error:",
         fg="white",
@@ -195,61 +152,31 @@ Label(window,
       text="GPS Perimeter:",
       fg="white",
       bg="black").place(x=600, y=500)
-
-#Entry
-x = Entry(window, font=("Arial", 12))
-y = Entry(window, font=("Arial", 12))
-z = Entry(window, font=("Arial", 12))
-
-# Entry to Show
-rtk_total_area = Entry(
-    window,
-    font=("Arial", 12),
-    state="readonly"
-)
 gps_total_perimeter = Entry(
     window,
     font=("Arial", 12),
     state="readonly"
 )
-gps_total_area = Entry(
-    window,
-    font=("Arial", 12),
-    state="readonly"
-)
-rtk_total_perimeter = Entry(
-    window,
-    font=("Arial", 12),
-    state="readonly"
-)
-
-# list boxes
-Gps_list = Listbox(window, selectmode= MULTIPLE)
-Rtk_list = Listbox(window,selectmode= MULTIPLE)
-point_error = Listbox(window,selectmode= MULTIPLE)
 
 
+Gps_list = Listbox(window)
+Rtk_list = Listbox(window)
+point_error = Listbox(window)
 
-# plot
+gps_total_perimeter.place(x=700, y=500)
+gps_total_area.place(x=700, y=470)
+
+rtk_total_area.place(x=1000, y=470)
+rtk_total_perimeter.place(x=1000, y=500)
+
+
 fig = Figure(figsize=(6, 4), dpi=100)
 canvas = FigureCanvasTkAgg(fig, master=window)
 canvas_widget = canvas.get_tk_widget()
 
 
-#place 
-gps_total_perimeter.place(x=700, y=500)
-gps_total_area.place(x=700, y=470)
-rtk_total_area.place(x=1000, y=470)
-rtk_total_perimeter.place(x=1000, y=500)
 Gps_list.place(x=30, y=275)
 point_error.place(x=230, y=275)
 Rtk_list.place(x=430, y=275)
-delete.place(x= 30 ,y = 500)
-swap_B.place(x = 30 , y = 540)
-x.place(x=30, y=50)
-y.place(x=30, y=100)
-z.place(x=30, y=150)
-add_point.place(x=300, y=50)
-add_point2.place(x=300, y=100)
-canvas_widget.place(x=650, y=50)
-window.mainloop()
+
+

@@ -17,10 +17,3 @@ point deletion would be nice for acidental input
 lemme think
 basic array swap and basic index deletion
 got it
-
-LOG 3
-now i think it is done ill see if i can add more featuers before submitting or not 
-lemme google some professional tools to get inspo
-
-okay ill add load project save project and new project
-i had planned it but didnt code it properly
